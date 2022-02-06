@@ -1,3 +1,4 @@
+/* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useRef, useLayoutEffect } from "react";
 import "./App.css";
@@ -36,6 +37,8 @@ function App() {
     questions.map((q) => {
       if (q.id === numberOfQuestion && data[q.title] !== 0) {
         return setValue(data[q.title]);
+      } else {
+        return "";
       }
     });
   };
@@ -44,6 +47,8 @@ function App() {
     questions.map((q) => {
       if (q.id === numberOfQuestion) {
         return setToolTipSpace(q.toolTipSpace);
+      } else {
+        return "";
       }
     });
   };
@@ -81,6 +86,8 @@ function App() {
           ...data,
           [q.title]: value,
         });
+      } else {
+        return;
       }
     });
     questions.map((q) => {
