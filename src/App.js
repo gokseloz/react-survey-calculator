@@ -183,7 +183,6 @@ function App() {
               );
             })}
           </div>
-
           <button className="nextBtn" onClick={nextQuestion}>
             Next Question
           </button>
