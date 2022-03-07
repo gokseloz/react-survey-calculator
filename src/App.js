@@ -2,12 +2,15 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useRef, useLayoutEffect } from "react";
 import "./App.css";
+import Pagination from "./components/Pagination/Pagination";
+import { NextButton, PrevButton } from "./components/Buttons/Button";
 import Questions from "./Questions";
 import { numberWithCommas } from "./utils/numberWithCommas";
+import QuizHeader from "./components/QuizHeader/QuizHeader";
 
 function App() {
   const [questions] = useState(Questions);
-  const [numberOfQuestion, setNumberOfQuestion] = useState(0);
+  const [questionNumber, setQuestionNumber] = useState(0);
   const [value, setValue] = useState(1);
   const [reachedMax, setReachedMax] = useState(false);
   const [reachedMin, setReachedMin] = useState(true);
@@ -23,7 +26,7 @@ function App() {
   });
 
   const { id, unit, question, rangeStart, rangeStop, step } =
-    questions[numberOfQuestion];
+    questions[questionNumber];
   const spanRef = useRef();
 
   useLayoutEffect(() => {
@@ -31,11 +34,11 @@ function App() {
     setReachedMin(true);
     updateValue();
     updateToolTipPosition();
-  }, [numberOfQuestion]);
+  }, [questionNumber]);
 
   const updateValue = () => {
     questions.map((q) => {
-      if (q.id === numberOfQuestion && data[q.title] !== 0) {
+      if (q.id === questionNumber && data[q.title] !== 0) {
         return setValue(data[q.title]);
       } else {
         return "";
@@ -45,7 +48,7 @@ function App() {
 
   const updateToolTipPosition = () => {
     questions.map((q) => {
-      if (q.id === numberOfQuestion) {
+      if (q.id === questionNumber) {
         return setToolTipSpace(q.toolTipSpace);
       } else {
         return "";
@@ -81,7 +84,7 @@ function App() {
     value <= rangeStart ? setReachedMin(true) : setReachedMin(false);
 
     questions.map((q) => {
-      if (q.id === numberOfQuestion) {
+      if (q.id === questionNumber) {
         return setData({
           ...data,
           [q.title]: value,
@@ -91,44 +94,19 @@ function App() {
       }
     });
     questions.map((q) => {
-      if (q.id === numberOfQuestion) {
+      if (q.id === questionNumber) {
         q.toolTipSpace = spaceFromLeft;
       }
     });
   };
 
-  const nextQuestion = () => {
-    if (numberOfQuestion === questions.length - 1) {
-      setNumberOfQuestion(questions.length - 1);
-    } else {
-      setNumberOfQuestion((prevQuestion) => prevQuestion + 1);
-    }
-  };
-
-  const prevQuestion = () => {
-    if (numberOfQuestion === 0) {
-      setNumberOfQuestion(0);
-    } else {
-      setNumberOfQuestion((prevQuestion) => prevQuestion - 1);
-    }
-  };
   return (
     <main className="main">
       <div className="container">
         <section className="quiz-wrapper">
           <div className="quiz" key={id}>
-            <div className="quiz-header">
-              <div className="quiz-header-question">
-                <p>Question {id}</p>
-                <p>{question}</p>
-              </div>
-              <div className="quiz-header-value">
-                <span className="question-value">
-                  {numberWithCommas(value)}
-                </span>
-                <p>{unit}</p>
-              </div>
-            </div>
+            <QuizHeader id={id} question={question} unit={unit} value={value} />
+
             <div className="quiz-body">
               <input
                 className="inputRange"
@@ -165,27 +143,20 @@ function App() {
           </div>
         </section>
         <section className="quiz-pagination">
-          <button className="prevBtn" onClick={prevQuestion}>
-            Previous Question
-          </button>
-          <div className="paginationBtns">
-            {questions.map((q, index) => {
-              return (
-                <button
-                  className={`paginationBtn ${
-                    index === numberOfQuestion && "active-btn"
-                  }`}
-                  key={q.id}
-                  onClick={() => setNumberOfQuestion(index)}
-                >
-                  {q.id}
-                </button>
-              );
-            })}
-          </div>
-          <button className="nextBtn" onClick={nextQuestion}>
-            Next Question
-          </button>
+          <PrevButton
+            questionNumber={questionNumber}
+            setQuestionNumber={setQuestionNumber}
+          />
+          <Pagination
+            questions={questions}
+            questionNumber={questionNumber}
+            setQuestionNumber={setQuestionNumber}
+          />
+          <NextButton
+            questionNumber={questionNumber}
+            setQuestionNumber={setQuestionNumber}
+            questions={questions}
+          />
         </section>
       </div>
     </main>
