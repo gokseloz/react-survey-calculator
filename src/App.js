@@ -1,4 +1,3 @@
-/* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useRef, useLayoutEffect } from "react";
 import "./App.css";
@@ -16,34 +15,40 @@ function App() {
   const [reachedMin, setReachedMin] = useState(true);
   const [toolTipSpace, setToolTipSpace] = useState(0);
   const [data, setData] = useState({
-    table: 0,
-    cover: 0,
-    revenue: 0,
-    wage: 0,
-    minShift: 0,
+    table: 1,
+    cover: 1,
+    revenue: 10000,
+    wage: 8,
+    minShift: 2,
     labourPerc: 0,
     houseEmployee: 0,
   });
 
   const { id, unit, question, rangeStart, rangeStop, step } =
     questions[questionNumber];
-  const spanRef = useRef();
+
+  const tooltipRef = useRef();
 
   useLayoutEffect(() => {
-    setValue(rangeStart);
-    setReachedMin(true);
     updateValue();
+    updateMinMaxVisibility();
     updateToolTipPosition();
-  }, [questionNumber]);
+  }, [questionNumber, value]);
 
   const updateValue = () => {
     questions.map((q) => {
-      if (q.id === questionNumber && data[q.title] !== 0) {
+      if (q.id === questionNumber) {
         return setValue(data[q.title]);
       } else {
         return "";
       }
     });
+  };
+
+  // Visibility of the max and min values at the edges
+  const updateMinMaxVisibility = () => {
+    value >= rangeStop ? setReachedMax(true) : setReachedMax(false);
+    value <= rangeStart ? setReachedMin(true) : setReachedMin(false);
   };
 
   const updateToolTipPosition = () => {
@@ -60,17 +65,16 @@ function App() {
     const min = e.target.min;
     const max = e.target.max;
     const value = e.target.value;
+    setValue(value);
 
     e.target.style.backgroundSize =
       ((value - min) * 100) / (max - min) + "% 100%";
-
-    setValue(value);
 
     // Calculate toolTip's position
     const diameterOfInputThumb = 42;
     const radiusOfInputThumb = diameterOfInputThumb / 2;
     const inputWidth = e.target.getBoundingClientRect().width;
-    const widthOfToolTip = spanRef.current.getBoundingClientRect().width;
+    const widthOfToolTip = tooltipRef.current.getBoundingClientRect().width;
     const gapDistance =
       (inputWidth - diameterOfInputThumb) / (rangeStop - rangeStart);
     const factor = value - rangeStart;
@@ -79,22 +83,12 @@ function App() {
       gapDistance * factor - halfOfTheToolTipWidth + radiusOfInputThumb;
     setToolTipSpace(spaceFromLeft);
 
-    // Appearing of the max and min values at the edges
-    value >= rangeStop ? setReachedMax(true) : setReachedMax(false);
-    value <= rangeStart ? setReachedMin(true) : setReachedMin(false);
-
     questions.map((q) => {
       if (q.id === questionNumber) {
-        return setData({
+        setData({
           ...data,
           [q.title]: value,
         });
-      } else {
-        return;
-      }
-    });
-    questions.map((q) => {
-      if (q.id === questionNumber) {
         q.toolTipSpace = spaceFromLeft;
       }
     });
@@ -106,7 +100,6 @@ function App() {
         <section className="quiz-wrapper">
           <div className="quiz" key={id}>
             <QuizHeader id={id} question={question} unit={unit} value={value} />
-
             <div className="quiz-body">
               <input
                 className="inputRange"
@@ -126,7 +119,7 @@ function App() {
               />
               <span
                 className="toolTip"
-                ref={spanRef}
+                ref={tooltipRef}
                 style={{ transform: `translateX(${toolTipSpace}px)` }}
               >
                 {numberWithCommas(value)}

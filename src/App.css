@@ -43,46 +43,6 @@ button {
   box-shadow: 0 0 10px 0px rgba(0, 0, 0, 0.3);
 }
 
-.quiz-header {
-  padding: 2rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #111111;
-  color: #fff;
-}
-
-.quiz-header-question {
-  font-weight: bold;
-  font-size: 1.2rem;
-}
-
-.quiz-header-question > p:first-child {
-  color: #747474;
-}
-
-.quiz-header-value {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.quiz-header-value > span {
-  text-align: center;
-  width: 200px;
-  font-weight: bold;
-  background-color: #fff;
-  border-radius: 0.5em;
-  color: #111111;
-  font-size: 1.4rem;
-  padding-block: 0.4em;
-}
-
-.quiz-header-value > p {
-  color: rgba(255, 255, 255, 0.8);
-}
-
 .quiz-body {
   display: flex;
   flex-direction: column;
@@ -175,39 +135,4 @@ input[type="range"]::-ms-track {
   display: flex;
   justify-content: space-between;
   gap: 2rem;
-}
-
-.paginationBtns {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 1rem;
-}
-
-.paginationBtn {
-  color: #fff;
-  width: 40px;
-  height: 40px;
-  background-color: rgba(188, 180, 241, 1);
-  border-radius: 50%;
-}
-
-.paginationBtn:hover {
-  opacity: 0.9;
-}
-
-.active-btn {
-  background-color: #111111;
-}
-
-.prevBtn,
-.nextBtn {
-  border: 1px solid #111111;
-  padding: 0.75em 1.3em;
-  border-radius: 0.5em;
-}
-
-:is(.prevBtn, .nextBtn):hover {
-  background-color: #111111;
-  color: #fff;
 }

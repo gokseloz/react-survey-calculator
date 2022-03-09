@@ -8,7 +8,7 @@ export default [
     rangeStart: 1,
     rangeStop: 100,
     step: 1,
-    toolTipSpace: 0,
+    toolTipSpace: 16,
   },
   {
     id: 1,
@@ -18,7 +18,7 @@ export default [
     rangeStart: 1,
     rangeStop: 500,
     step: 1,
-    toolTipSpace: 0,
+    toolTipSpace: 16,
   },
   {
     id: 2,
@@ -39,7 +39,7 @@ export default [
     rangeStart: 8,
     rangeStop: 14,
     step: 0.1,
-    toolTipSpace: 0,
+    toolTipSpace: 16,
   },
   {
     id: 4,
@@ -50,7 +50,7 @@ export default [
     rangeStart: 2,
     rangeStop: 10,
     step: 1,
-    toolTipSpace: 0,
+    toolTipSpace: 16,
   },
   {
     id: 5,
@@ -60,7 +60,7 @@ export default [
     rangeStart: 0,
     rangeStop: 100,
     step: 1,
-    toolTipSpace: 0,
+    toolTipSpace: 16,
   },
   {
     id: 6,
@@ -70,6 +70,6 @@ export default [
     rangeStart: 0,
     rangeStop: 60,
     step: 1,
-    toolTipSpace: 0,
+    toolTipSpace: 16,
   },
 ];
