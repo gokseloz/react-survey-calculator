@@ -1,5 +1,6 @@
 import React from "react";
 import { numberWithCommas } from "../../utils/numberWithCommas";
+import "./QuizHeader.css";
 
 const QuizHeader = ({ id, question, unit, value }) => {
   return (
