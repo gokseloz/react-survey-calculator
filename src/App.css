@@ -6,6 +6,7 @@
 
 body {
   font-family: "Montserrat", sans-serif;
+  line-height: 1.5;
 }
 
 button {
@@ -30,7 +31,7 @@ button {
 .container {
   display: flex;
   flex-direction: column;
-  width: clamp(350px, 50%, 960px);
+  width: clamp(350px, 90%, 960px);
   position: relative;
   gap: 2rem;
 }
@@ -135,4 +136,15 @@ input[type="range"]::-ms-track {
   display: flex;
   justify-content: space-between;
   gap: 2rem;
+  flex-wrap: wrap;
+}
+@media (max-width: 900px) {
+  .quiz-pagination {
+    justify-content: center;
+  }
+}
+@media (max-width: 420px) {
+  .quiz-pagination {
+    gap: 0.7rem;
+  }
 }

@@ -9,3 +9,19 @@
   background-color: #111111;
   color: #fff;
 }
+
+@media (max-width: 900px) {
+  .prevBtn {
+    order: 1;
+  }
+  .nextBtn {
+    order: 2;
+  }
+}
+
+@media (max-width: 420px) {
+  .prevBtn,
+  .nextBtn {
+    margin-top: 1rem;
+  }
+}

@@ -1,15 +1,30 @@
 .quiz-header {
   padding: 2rem;
+  gap: 1rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
   background-color: #111111;
   color: #fff;
+  height: 150px;
+}
+@media (max-width: 700px) {
+  .quiz-header {
+    justify-content: center;
+    flex-direction: column;
+    align-items: stretch;
+    height: 300px;
+  }
 }
 
 .quiz-header-question {
   font-weight: bold;
   font-size: 1.2rem;
+}
+@media (max-width: 700px) {
+  .quiz-header-question {
+    text-align: center;
+  }
 }
 
 .quiz-header-question > p:first-child {
@@ -22,6 +37,11 @@
   align-items: center;
   gap: 0.5rem;
 }
+@media (max-width: 700px) {
+  .quiz-header-value {
+    text-align: center;
+  }
+}
 
 .quiz-header-value > span {
   text-align: center;
@@ -32,6 +52,11 @@
   color: #111111;
   font-size: 1.4rem;
   padding-block: 0.4em;
+}
+@media (max-width: 700px) {
+  .quiz-header-value > span {
+    width: 100%;
+  }
 }
 
 .quiz-header-value > p {
